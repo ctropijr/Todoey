@@ -10,9 +10,10 @@ import UIKit
 
 //change view controller inherits from because we changed the view controller
 
+
 class ToDoListViewController: UITableViewController {
     
-        let itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +42,40 @@ class ToDoListViewController: UITableViewController {
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
         } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
-        
-
-      
         
         //after row is selected grey fades
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //ADD NEW ITEM:
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        //creating alert and action
+        let alert = UIAlertController (title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction (title: "Add Item", style: .default) { (action) in
+            self.itemArray.append(textField.text!)
+            //you have to do this in order to reload all data and show 
+            self.tableView.reloadData()
+
+        }
+    
+        //adding action to our alert
+        alert.addAction(action)
+        
+        
+        //adding textfield to our alert
+        alert.addTextField {(alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+      
+        
+        //actually presents the alert to the user
+        present(alert, animated: true, completion: nil)
+    }
     
 }
  
