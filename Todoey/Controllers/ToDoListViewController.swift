@@ -31,7 +31,8 @@ class ToDoListViewController: UITableViewController {
         let newItem3 = Item()
         newItem3.title = "Find Mike"
         itemArray.append(newItem)
-        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+        
+        if let items = defaults.array(forKey: "ToDoListArray") as? [Item] {
             itemArray = items
     }
        
